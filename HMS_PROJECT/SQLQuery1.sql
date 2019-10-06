@@ -1,0 +1,52 @@
+Use master
+CREATE DATABASE HMS_ProjectDB
+GO		
+
+USE HMS_ProjectDB
+CREATE TABLE RoleList
+(
+RoleListID INT PRIMARY KEY IDENTITY,
+RoleName VARCHAR (40) UNIQUE,  
+);
+ GO
+
+CREATE TABLE UserInfo(
+UserInfoID INT PRIMARY KEY IDENTITY,
+UserName VARCHAR (40) UNIQUE,
+UserPassword NVARCHAR (30),
+UserContactNo varchar(30) UNIQUE not null,
+RoleListID INT FOREIGN KEY REFERENCES RoleList(RoleListID)
+); 
+ GO
+
+CREATE TABLE Department
+(
+DepartmentID INT PRIMARY KEY IDENTITY,
+DeptName VARCHAR (40),  
+);
+GO
+
+CREATE TABLE Doctor
+(
+DoctorID INT PRIMARY KEY IDENTITY,
+DocName VARCHAR (40),
+DocContactNo VARCHAR(30),
+DocSp NVARCHAR(50),
+DepartmentID INT FOREIGN KEY REFERENCES Department(DepartmentID)
+);
+GO
+
+CREATE TABLE Patient(
+PatientID INT PRIMARY KEY IDENTITY,
+PatName VARCHAR (40),
+PatAddress NVARCHAR (30),
+AdmitDept INT FOREIGN KEY REFERENCES Department(DepartmentID),
+RefDoc INT FOREIGN KEY REFERENCES Doctor(DoctorID),
+CreatedBy int FOREIGN KEY REFERENCES UserInfo(UserInfoID)
+);
+GO
+
+ 
+ SELECT * FROM UserInfo WHERE UserName='x' AND UserPassword='x'
+
+
